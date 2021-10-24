@@ -1,27 +1,29 @@
 CREATE FUNCTION ze_ExtensoNumero( nValor DECIMAL(18,0) )
-RETURNS varchar(500)
+RETURNS varchar(1000)
+
 BEGIN
-DECLARE cTxt VARCHAR(500) DEFAULT '';
-DECLARE nGrupo INT DEFAULT 0;
+
+DECLARE cTxt VARCHAR(1000) DEFAULT '';
+DECLARE nGrupo INT(11) DEFAULT 0;
 DECLARE nValGrupo DECIMAL(15,0);
 DECLARE nValResto DECIMAL(15,0);
-DECLARE cstrvalor VARCHAR(20);
+DECLARE cStrValor VARCHAR(20);
 DECLARE cTxtGrupo VARCHAR(20);
-DECLARE cTxtthis VARCHAR(500);
-IF nvalor = 0 THEN
+DECLARE cTxtThis VARCHAR(500);
+IF nValor = 0 THEN
    RETURN '*ZERO*';
 END IF ;
-SET cstrvalor = LPAD( ABS( nValor ), 18, '0' );
+SET cStrValor = LPAD( ABS( nValor ), 18, '0' );
 SET nGrupo = 0;
 LOOP_GRUPOS: LOOP
    SET nGrupo = nGrupo + 1;
    IF nGrupo > 6 THEN
-      leave LOOP_GRUPOS;
+      LEAVE LOOP_GRUPOS;
    END IF;
    SET cTxtGrupo = '';
    SET cTxtThis = '';
    SET nValGrupo = CAST( SUBSTR( cStrValor, ( nGrupo * 3 ) - 2, 3 ) AS DECIMAL(5,0) );
-   IF length( cStrValor ) <= nGrupo * 3 + 4 THEN
+   IF LENGTH( cStrValor ) <= nGrupo * 3 + 4 THEN
       SET nValResto = 0;
    ELSE
       SET nValResto = CAST( SUBSTR( cStrValor, ( nGrupo * 3 ) + 1, 3 ) AS DECIMAL(18,0) );
@@ -57,4 +59,5 @@ LOOP_GRUPOS: LOOP
    END IF;
    END LOOP LOOP_GRUPOS;
 RETURN cTxt;
+
 END

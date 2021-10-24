@@ -1,6 +1,8 @@
-CREATE FUNCTION ze_ExtensoDezena( nValor INT )
+CREATE FUNCTION ze_ExtensoDezena( nValor INT(11) )
 RETURNS varchar(500)
+
 BEGIN
+
 DECLARE cTxt VARCHAR(500);
 DECLARE nDezena INT;
 DECLARE nUnidade INT;
@@ -29,4 +31,5 @@ IF nValor > 0 THEN
    END IF;
 END IF;
 RETURN cTxt;
+
 END

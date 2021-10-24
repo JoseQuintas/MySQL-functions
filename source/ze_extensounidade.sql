@@ -1,6 +1,8 @@
-CREATE FUNCTION ze_ExtensoUnidade( nValor INT )
+CREATE FUNCTION ze_ExtensoUnidade( nValor INT(11) )
 RETURNS varchar(500)
+
 BEGIN
+
 DECLARE cTxt VARCHAR(500);
 SET cTxt = (
 CASE
