@@ -1,19 +1,20 @@
 CREATE FUNCTION ze_ExtensoDezena( nValor INT(11) )
-RETURNS varchar(500)
+RETURNS TEXT CHARSET latin1
 
 BEGIN
 
-DECLARE cTxt VARCHAR(500);
-DECLARE nDezena INT;
-DECLARE nUnidade INT;
-SET cTxt = '';
+DECLARE cTxt TEXT;
+DECLARE nDezena, nUnidade INT(11);
+
+SET cTxt := '';
+
 IF nValor > 0 THEN
    IF nValor < 20 THEN
-      SET cTxt = ze_ExtensoUnidade( nValor );
+      SET cTxt := ze_ExtensoUnidade( nValor );
    ELSE
-      SET nDezena = floor( nValor / 10 );
-      SET nUnidade = nValor - ( nDezena * 10 );
-      SET cTxt = (
+      SET nDezena := floor( nValor / 10 );
+      SET nUnidade := nValor - ( nDezena * 10 );
+      SET cTxt := (
       CASE
          WHEN nDezena = 2 THEN 'VINTE'
          WHEN nDezena = 3 THEN 'TRINTA'
@@ -26,10 +27,11 @@ IF nValor > 0 THEN
       ELSE ''
       END );
       IF nUnidade != 0 THEN
-         SET cTxt = CONCAT( cTxt, ' E ', ze_ExtensoUnidade( nUnidade ) );
+         SET cTxt := CONCAT( cTxt, ' E ', ze_ExtensoUnidade( nUnidade ) );
       END IF;
    END IF;
 END IF;
+
 RETURN cTxt;
 
 END

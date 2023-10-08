@@ -1,19 +1,21 @@
 CREATE FUNCTION ze_ExtensoCentena( nValor INT(11) )
-RETURNS VARCHAR(500)
+RETURNS TEXT CHARSET latin1
 
 BEGIN
 
-DECLARE cTxt VARCHAR(500);
+DECLARE cTxt TEXT;
 DECLARE nCentena INT;
 DECLARE nDezena INT;
+
 SET cTxt = '';
+
 IF nValor > 0 THEN
    IF nValor = 100 THEN
-      SET cTxt = 'CEM';
+      SET cTxt := 'CEM';
    ELSE
-      SET nCentena = floor( nValor / 100 );
-      SET nDezena = nValor - ( nCentena * 100 );
-	   SET cTxt = (
+      SET nCentena := floor( nValor / 100 );
+      SET nDezena := nValor - ( nCentena * 100 );
+	   SET cTxt := (
 	   CASE
 	      WHEN nCentena = 1 THEN 'CENTO'
 	      WHEN nCentena = 2 THEN 'DUZENTOS'
@@ -27,10 +29,11 @@ IF nValor > 0 THEN
 		ELSE ''
 		END );
 	   IF nDezena != 0 THEN
-		   SET cTxt = CONCAT( cTxt, IF( nCentena = 0, '', ' E ' ), ze_ExtensoDezena( nDezena ) );
+		   SET cTxt := CONCAT( cTxt, IF( nCentena = 0, '', ' E ' ), ze_ExtensoDezena( nDezena ) );
    	END IF;
 	END IF;
 END IF;
+
 RETURN cTxt;
 
 END

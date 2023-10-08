@@ -1,9 +1,10 @@
 CREATE FUNCTION ze_ExtensoUnidade( nValor INT(11) )
-RETURNS varchar(500)
+RETURNS TEXT CHARSET latin1
 
 BEGIN
 
-DECLARE cTxt VARCHAR(500);
+DECLARE cTxt TEXT;
+
 SET cTxt = (
 CASE
    WHEN nValor = 1 THEN 'UM'
@@ -27,5 +28,7 @@ CASE
    WHEN nValor = 19 THEN 'DEZENOVE'
 ELSE ''
 END );
+
 RETURN cTxt;
+
 END
