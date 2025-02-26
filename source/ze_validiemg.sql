@@ -12,10 +12,14 @@ DECLARE nCont INT(11) DEFAULT 1;
 DECLARE nMultiplica INT(11);
 DECLARE nValor INT(11);
 
-SET cInscricao = ze_SoNumeros( cInscricao );
+SET cInscricao = ze_SoNumero( cInscricao );
 
-IF LENGTH( cInscricao ) <> 13 THEN
+IF LENGTH( cInscricao ) > 13 THEN
    RETURN 0;
+END IF;
+
+IF LENGTH( cInscricao ) < 13 THEN
+   SET cInscricao := LPAD( cInscricao, 13, '0' );
 END IF;
 
 SET cValida := CONCAT( SUBSTR( cInscricao, 1, 3 ), "0", Substr( cInscricao, 4, 8 ) );
